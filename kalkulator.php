@@ -11,13 +11,14 @@
             let operator = document.forms["calcForm"]["operator"].value;
 
             // cek angka1 kosong atau bukan angka
-            if (angka1 === "" || isNaN(angka1)) {
+            if (angka1.trim() === "" || isNaN(angka1)) {
                 alert("Angka 1 harus diisi dan berupa angka!");
                 return false;
             }
 
+
             // cek angka2 kosong atau bukan angka
-            if (angka2 === "" || isNaN(angka2)) {
+            if (angka2.trim() === "" || isNaN(angka2)) {
                 alert("Angka 2 harus diisi dan berupa angka!");
                 return false;
             }
