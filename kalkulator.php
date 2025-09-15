@@ -11,26 +11,22 @@
             let angka2 = document.forms["calcForm"]["angka2"].value.trim();
             let operator = document.forms["calcForm"]["operator"].value;
 
-            // cek angka1 kosong atau bukan angka
             if (angka1.trim() === "" || isNaN(angka1)) {
                 alert("Angka 1 harus diisi dan berupa angka!");
                 return false;
             }
 
-
-            // cek angka2 kosong atau bukan angka
             if (angka2.trim() === "" || isNaN(angka2)) {
                 alert("Angka 2 harus diisi dan berupa angka!");
                 return false;
             }
 
-            // cek pembagian dengan nol
             if (operator === "/" && Number(angka2) === 0) {
                 alert("Angka 2 tidak boleh 0 untuk pembagian!");
                 return false;
             }
 
-            return true; // semua valid
+            return true; 
         }
     </script>
 </head>

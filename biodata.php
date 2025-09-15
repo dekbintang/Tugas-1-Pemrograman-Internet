@@ -12,7 +12,6 @@
             let jenisKelamin = document.getElementById("jenis_kelamin").value;
             let alamat = document.getElementById("alamat").value.trim();
 
-            // Validasi Nama: tidak kosong dan hanya huruf/spasi
             if (nama === "") {
                 alert("Nama harus diisi!");
                 return false;
@@ -23,7 +22,6 @@
                 return false;
             }
 
-            // Validasi Umur: tidak kosong dan bilangan bulat positif
             if (umur === "") {
                 alert("Umur harus diisi!");
                 return false;
@@ -33,19 +31,17 @@
                 return false;
             }
 
-            // Validasi Jenis Kelamin
             if (jenisKelamin === "") {
                 alert("Pilih jenis kelamin!");
                 return false;
             }
 
-            // Validasi Alamat
             if (alamat === "") {
                 alert("Alamat harus diisi!");
                 return false;
             }
 
-            return true; // semua valid
+            return true; 
         }
     </script>
 </head>
@@ -78,7 +74,6 @@
         $jenisKelamin = $_POST["jenis_kelamin"] ?? "";
         $alamat = trim($_POST["alamat"]);
 
-        // Validasi tambahan di PHP
         if ($nama === "" || !preg_match("/^[a-zA-Z\s]+$/", $nama) ||
             $umur === "" || !ctype_digit($umur) ||
             $jenisKelamin === "" || $alamat === "") {
