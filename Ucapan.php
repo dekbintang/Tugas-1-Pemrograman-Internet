@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Form Input</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <form method="POST">
@@ -11,10 +12,10 @@
         <button type="submit">Kirim</button>
     </form>
 
-    <?php
+     <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nama = htmlspecialchars($_POST["nama"]);
-        echo "Halo, $nama selamat belajar PHP!";
+        echo "<div class='output'>Halo, <b>$nama</b> selamat belajar PHP!</div>";
     }
     ?>
 </body>
