@@ -1,6 +1,11 @@
 <?php
-    $host = "locallhost";
-    $user = "root";
-    $pass = "";
-    $db   = "kampus"
+$host = "localhost";
+$user = "root";
+$pass = "";
+$db   = "kampus";
+
+$conn = new mysqli($host, $user, $pass, $db);
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
+}
 ?>
