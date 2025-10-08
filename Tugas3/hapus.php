@@ -21,13 +21,13 @@ if($stmt->execute()) {
     echo '
     <div class="p-6 bg-green-100 border border-green-300 text-green-700 rounded-lg shadow-lg flex justify-between items-center">
         <span>Data berhasil dihapus!</span>
-        <a href="index.php" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-1 px-4 rounded shadow transition">Kembali</a>
+        <a href="mahasiswa.php" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-1 px-4 rounded shadow transition">Kembali</a>
     </div>';
 } else {
     echo '
     <div class="p-6 bg-red-100 border border-red-300 text-red-700 rounded-lg shadow-lg flex justify-between items-center">
         <span>Error: '.$stmt->error.'</span>
-        <a href="index.php" class="bg-red-500 hover:bg-red-700 text-white font-semibold py-1 px-4 rounded shadow transition">Kembali</a>
+        <a href="mahasiswa.php" class="bg-red-500 hover:bg-red-700 text-white font-semibold py-1 px-4 rounded shadow transition">Kembali</a>
     </div>';
 }
 ?>

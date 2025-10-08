@@ -28,7 +28,7 @@
             echo '
             <div class="mb-4 p-4 rounded-lg bg-yellow-100 border border-yellow-300 text-yellow-700 flex justify-between items-center">
                 <span>Data dengan NIM '.$nim.' sudah ditambahkan!</span>
-                <a href="index.php" class="bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-1 px-4 rounded shadow transition">Kembali</a>
+                <a href="mahasiswa.php" class="bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-1 px-4 rounded shadow transition">Kembali</a>
             </div>';
         } else {
             $stmt = $conn->prepare("INSERT INTO mahasiswa (nim, nama, prodi) VALUES (?, ?, ?)");
@@ -38,7 +38,7 @@
                 echo '
                 <div class="mb-4 p-4 rounded-lg bg-green-100 border border-green-300 text-green-700 flex justify-between items-center">
                     <span>Data berhasil disimpan!</span>
-                    <a href="index.php" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-1 px-4 rounded shadow transition">Kembali</a>
+                    <a href="mahasiswa.php" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-1 px-4 rounded shadow transition">Kembali</a>
                 </div>';
                 // Kosongkan field setelah berhasil simpan
                 $nim = $nama = $prodi = "";
@@ -46,7 +46,7 @@
                 echo '
                 <div class="mb-4 p-4 rounded-lg bg-red-100 border border-red-300 text-red-700 flex justify-between items-center">
                     <span>Error: '.$stmt->error.'</span>
-                    <a href="index.php" class="bg-red-500 hover:bg-red-700 text-white font-semibold py-1 px-4 rounded shadow transition">Kembali</a>
+                    <a href="mahasiswa.php" class="bg-red-500 hover:bg-red-700 text-white font-semibold py-1 px-4 rounded shadow transition">Kembali</a>
                 </div>';
             }
         }

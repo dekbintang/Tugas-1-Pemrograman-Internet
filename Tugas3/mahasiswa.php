@@ -37,13 +37,27 @@
     </div>
 </div>
 
+<!-- Modal Hapus -->
+<div id="modalHapus" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-50 flex items-center justify-center">
+    <div class="bg-white rounded-lg shadow-xl p-6 w-80 max-w-full">
+        <h2 class="text-lg font-semibold text-gray-700 mb-4 text-center">Konfirmasi Hapus</h2>
+        <p class="text-gray-600 mb-6 text-center">Apakah kamu yakin ingin menghapus mahasiswa ini?</p>
+        <div class="flex justify-center gap-3">
+            <button id="btnBatal" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium py-1.5 px-4 rounded-lg transition">Tidak</button>
+            <button id="btnHapusConfirm" class="bg-red-500 hover:bg-red-600 text-white font-medium py-1.5 px-4 rounded-lg transition">Ya, Hapus</button>
+        </div>
+    </div>
+</div>
+
 <script>
+let hapusId = null;
+
 function loadMahasiswa(keyword = "") {
     fetch("cari.php?keyword=" + encodeURIComponent(keyword))
     .then(res => res.json())
     .then(data => {
         let isi = "";
-        data.forEach((m, index) => { // index digunakan untuk nomor urut
+        data.forEach((m, index) => {
             isi += `<tr class="hover:bg-gray-100 transition">
                 <td class="py-2 px-4">${index + 1}</td>
                 <td class="py-2 px-4">${m.nim}</td>
@@ -51,7 +65,7 @@ function loadMahasiswa(keyword = "") {
                 <td class="py-2 px-4">${m.prodi}</td>
                 <td class="py-2 px-4 text-right flex justify-end gap-2">
                     <a href='edit.php?id=${m.id}' class="bg-yellow-400 hover:bg-yellow-500 text-white font-semibold py-1 px-3 rounded shadow-sm transition">Edit</a>
-                    <a href='hapus.php?id=${m.id}' class="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-3 rounded shadow-sm transition">Hapus</a>
+                    <button onclick="showHapusModal(${m.id})" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-3 rounded shadow-sm transition">Hapus</button>
                     <a href='nilai.php?mahasiswa_id=${m.id}' class="bg-green-500 hover:bg-green-600 text-white font-semibold py-1 px-3 rounded shadow-sm transition">Nilai</a>
                 </td>
             </tr>`;
@@ -59,6 +73,36 @@ function loadMahasiswa(keyword = "") {
         document.querySelector("#hasil").innerHTML = isi;
     });
 }
+
+// Modal Hapus
+function showHapusModal(id) {
+    hapusId = id;
+    document.getElementById("modalHapus").classList.remove("hidden");
+}
+
+// Tombol Batal
+document.getElementById("btnBatal").addEventListener("click", () => {
+    hapusId = null;
+    document.getElementById("modalHapus").classList.add("hidden");
+});
+
+// Tombol Hapus Konfirmasi
+document.getElementById("btnHapusConfirm").addEventListener("click", () => {
+    if (hapusId) {
+        fetch("hapus.php?id=" + hapusId, { method: "GET" })
+            .then(res => res.text())
+            .then(res => {
+                document.getElementById("modalHapus").classList.add("hidden");
+                hapusId = null;
+                loadMahasiswa(); // reload data mahasiswa tanpa refresh
+            })
+            .catch(err => {
+                console.error(err);
+                document.getElementById("modalHapus").classList.add("hidden");
+                hapusId = null;
+            });
+    }
+});
 
 document.querySelector("#keyword").oninput = function() {
     loadMahasiswa(this.value);

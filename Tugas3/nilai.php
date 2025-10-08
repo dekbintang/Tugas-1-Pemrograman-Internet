@@ -79,14 +79,13 @@ $mahasiswa = $stmt->get_result()->fetch_assoc();
                             <td class='py-3 px-4 text-center'>
                                 <div class='flex justify-center gap-2'>
                                     <a href='editnilai.php?id={$row['id']}&mahasiswa_id=$mid' 
-                                       class='bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded-md text-xs shadow transition'>
+                                       class='bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded-md text-xs shadow transition flex items-center justify-center gap-1'>
                                        Edit
                                     </a>
-                                    <a href='hapusnilai.php?id={$row['id']}&mahasiswa_id=$mid' 
-                                       class='bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-xs shadow transition'
-                                       onclick='return confirm(\"Yakin ingin menghapus nilai ini?\")'>
+                                    <button onclick='showHapusModal({$row['id']})'
+                                       class='bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-xs shadow transition flex items-center justify-center gap-1'>
                                        Hapus
-                                    </a>
+                                    </button>
                                 </div>
                             </td>
                         </tr>";
@@ -100,6 +99,49 @@ $mahasiswa = $stmt->get_result()->fetch_assoc();
         </table>
     </div>
 </div>
+
+<!-- Modal Hapus Tengah -->
+<div id="modalHapus" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-50 flex items-center justify-center">
+    <div class="bg-white rounded-lg shadow-xl p-6 w-80 max-w-full">
+        <h2 class="text-lg font-semibold text-gray-700 mb-4 text-center">Konfirmasi Hapus</h2>
+        <p class="text-gray-600 mb-6 text-center">Apakah kamu yakin ingin menghapus nilai ini?</p>
+        <div class="flex justify-center gap-3">
+            <button id="btnBatal" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium py-1.5 px-4 rounded-lg transition">Tidak</button>
+            <button id="btnHapusConfirm" class="bg-red-500 hover:bg-red-600 text-white font-medium py-1.5 px-4 rounded-lg transition">Ya, Hapus</button>
+        </div>
+    </div>
+</div>
+
+<script>
+let hapusId = null;
+
+function showHapusModal(id) {
+    hapusId = id;
+    document.getElementById("modalHapus").classList.remove("hidden");
+}
+
+document.getElementById("btnBatal").addEventListener("click", () => {
+    hapusId = null;
+    document.getElementById("modalHapus").classList.add("hidden");
+});
+
+document.getElementById("btnHapusConfirm").addEventListener("click", () => {
+    if (hapusId) {
+        fetch("hapusnilai.php?id=" + hapusId + "&mahasiswa_id=<?= $mid ?>", { method: "GET" })
+            .then(res => res.text())
+            .then(res => {
+                document.getElementById("modalHapus").classList.add("hidden");
+                hapusId = null;
+                location.reload(); // reload untuk update tabel nilai
+            })
+            .catch(err => {
+                console.error(err);
+                document.getElementById("modalHapus").classList.add("hidden");
+                hapusId = null;
+            });
+    }
+});
+</script>
 
 </body>
 </html>
