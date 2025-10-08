@@ -68,7 +68,7 @@
         <div class="flex justify-center gap-4 mt-2">
             <input type="submit" name="simpan" value="Simpan" 
                    class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow transition duration-300 cursor-pointer">
-            <a href="index.php" 
+            <a href="mahasiswa.php" 
                class="bg-gray-500 hover:bg-gray-700 text-white font-semibold py-2 px-6 rounded-lg shadow transition duration-300">Kembali</a>
         </div>
     </form>
